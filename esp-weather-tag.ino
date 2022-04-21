@@ -23,7 +23,6 @@ tm tm;
 void setup() {
    // Initialize serial port
    Serial.begin(9600);
-   Serial.println("updating display");
    LittleFS.begin();
    EPD.begin();
    updateDisplay();
@@ -37,9 +36,12 @@ void setup() {
    fetchandwritedata();
    time(&now);                       // read the current time
    localtime_r(&now, &tm);   
+   Serial.println(tm.tm_sec);
+   /*
    while(tm.tm_sec != 60) {
    }
    ESP.restart();
+   */
 }
 
 void loop() {
@@ -47,6 +49,9 @@ void loop() {
 }
 
 void fetchandwritedata() {
+   Serial.println("fetching and writing data");
+
+   /*
    WiFi.mode(WIFI_STA);
    WiFiManager wm;
    wm.autoConnect();
@@ -66,9 +71,11 @@ void fetchandwritedata() {
    file.print(http.getStream());
    file.close();
    http.end();   //Close connection
+   */
 }
 
 bool checkfortime() {
+   /*
    File file = LittleFS.open("/hourcheck.txt", "r+");
    Serial.println(file.read());
    if (file.read() == 25) {
@@ -79,10 +86,14 @@ bool checkfortime() {
       file.close();
       return false;
    }
+   */
+   Serial.println("checking time");
+   return false;
 }
 
 void updateDisplay() {
    Serial.println("updating display");
+   /*
    File file = LittleFS.open("/data.json", "r+");
    File file2 = LittleFS.open("/hourcheck.txt", "r+");
 
@@ -97,6 +108,7 @@ void updateDisplay() {
    Serial.print(F(": "));
    Serial.print(String(doc["hourly"][i]["temp"]));
    Serial.println(F("C"));
+   */
 }
 
 void incrementTime() {
